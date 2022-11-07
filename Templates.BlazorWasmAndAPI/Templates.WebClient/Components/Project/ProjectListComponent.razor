@@ -1,0 +1,17 @@
+﻿@using Project = Templates.Shared.DomainObjects.Project
+@inject IProjectService ProjectService
+<h3>Projects</h3>
+@foreach (var project in _projects)
+{
+    <span>ID: </span> @project.ProjectId <span> Name: </span> @project.Name <span> Created: </span> @project.Created <span> Is Active: </span> @project.IsActive <br />
+}
+
+@code {
+    List<Project> _projects = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _projects = await ProjectService.GetProjects();
+        StateHasChanged();
+    }
+}
